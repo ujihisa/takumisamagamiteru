@@ -38,7 +38,4 @@
 (defonce swank* nil)
 (defn on-enable [plugin]
   (when (nil? swank*)
-    (def swank* (swank.swank/start-repl 4006)))
-  (lingr "takumisamagamiteru plugin running..."))
-
-;  (lingr "takumisamagamiteru plugin stopping...")
+    (def swank* (swank.swank/start-repl 4006))))
