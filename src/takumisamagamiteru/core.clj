@@ -33,7 +33,9 @@
 
 (defn entity-target-event [evt]
   (when (instance? Creeper (.getEntity evt))
-    (broadcast "Takumi is watching " (.. evt (getTarget) (getDisplayName)))))
+    (let [target (.getTarget evt)]
+      (when (instance? Player target)
+        (c/broadcast "Takumi is watching " (.getDisplayName target))))))
 
 (defonce swank* nil)
 (defn on-enable [plugin]
