@@ -1,7 +1,8 @@
 (ns takumisamagamiteru.core
+  (:require [cloft.cloft :as c])
   (:require [swank.swank])
-  (:require [clojure.string :as s])
-  (:import [org.bukkit Bukkit])
+  (:require [clojure.set :as s])
+  (:import [org.bukkit Bukkit Material])
   (:import [org.bukkit.entity Animals Arrow Blaze Boat CaveSpider Chicken
             ComplexEntityPart ComplexLivingEntity Cow Creature Creeper Egg
             EnderCrystal EnderDragon EnderDragonPart Enderman EnderPearl
@@ -12,24 +13,9 @@
             SmallFireball Snowball Snowman Spider Squid StorageMinecart
             ThrownPotion TNTPrimed Vehicle Villager WaterMob Weather Wolf
             Zombie])
-  (:import [org.bukkit.event.entity CreatureSpawnEvent CreeperPowerEvent
-            EntityChangeBlockEvent
-            EntityCombustByBlockEvent EntityCombustByEntityEvent
-            EntityCombustEvent EntityCreatePortalEvent EntityDamageByBlockEvent
-            EntityDamageByEntityEvent
-            EntityDamageEvent EntityDeathEvent EntityEvent EntityExplodeEvent
-            EntityDamageEvent$DamageCause
-            EntityInteractEvent EntityPortalEnterEvent
-            EntityRegainHealthEvent EntityShootBowEvent EntityTameEvent
-            ;EntityTargetEvent EntityTeleportEvent ExplosionPrimeEvent
-            EntityTargetEvent ExplosionPrimeEvent
-            FoodLevelChangeEvent ItemDespawnEvent ItemSpawnEvent PigZapEvent
-            PlayerDeathEvent PotionSplashEvent ProjectileHitEvent
-            SheepDyeWoolEvent SheepRegrowWoolEvent SlimeSplitEvent])
-  (:require clj-http.client))
-
-(defn broadcast [& strs]
-  (.broadcastMessage (Bukkit/getServer) (apply str strs)))
+  (:import [org.bukkit.inventory ItemStack])
+  (:import [org.bukkit.event.entity EntityDamageByEntityEvent
+            EntityDamageEvent$DamageCause]))
 
 (defn entity-target-event [evt]
   (when (instance? Creeper (.getEntity evt))
